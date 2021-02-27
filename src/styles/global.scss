@@ -1,8 +1,11 @@
 @import "./colors.scss";
 @import "./mixins.scss";
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;500&display=swap");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color: $dark-gray;
+  font-family: "Karla", "Courier New", Courier, monospace;
 }
