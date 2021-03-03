@@ -1,0 +1,86 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+@import "styles/variables.scss";
+
+.movieCardContainer {
+  background-color: $purple-75;
+  border-radius: 2em;
+  margin: 2em 0;
+  position: relative;
+  overflow: hidden;
+  padding: 1em;
+
+  @include tablet {
+    width: 20em;
+  }
+
+  // @include flex(column, flex-start, center);
+  // height: 10em;
+
+  // @include flex(row, flex-start, center);
+
+  .imageContainer {
+    // width: 8em;
+    height: 14em;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 2em;
+    }
+
+    // @include tablet {
+    //   width: 15rem;
+    // }
+  }
+
+  .mainContent {
+    margin-top: 1em;
+    // width: 60%;
+    // padding: 1em;
+
+    .movieInfo {
+      position: relative;
+      width: 100%;
+      h2 {
+        color: $white;
+        font-size: 1.2rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 1.5;
+      }
+      .genres {
+        color: $medium-gray;
+        font-size: 0.7rem;
+      }
+      .year {
+        color: $white;
+        margin-top: 0.5em;
+      }
+
+      .footerContent {
+        margin-top: 0.7em;
+        @include flex(row, space-between, center);
+
+        a {
+          letter-spacing: 0.1em;
+          color: $white;
+          font-size: 0.7rem;
+          padding-top: 0.5em;
+          display: inline-block;
+          background-color: rgba($pink, 0.6);
+          border-radius: $border-radius;
+          text-decoration: none;
+          padding: 0.5em 1em;
+        }
+        .average {
+          text-align: end;
+          color: rgba($pink, 0.6);
+          font-size: 1.3rem;
+          letter-spacing: 0.2em;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

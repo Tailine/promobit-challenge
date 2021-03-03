@@ -1,3 +1,10 @@
+export interface PaginatedData<DataType> {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: DataType[];
+}
+
 export interface Movie {
   poster_path: string;
   adult: boolean;
@@ -14,7 +21,6 @@ export interface Movie {
   video: boolean;
   vote_average: number;
 }
-
 export interface PopularMovieResponse {
   page: number;
   results: Movie[];

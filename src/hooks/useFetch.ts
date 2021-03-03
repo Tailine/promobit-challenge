@@ -2,23 +2,24 @@ import { useEffect, useState } from "react";
 
 export function useFetch<T>(url: string) {
   const [respData, setRespData] = useState<T | undefined>();
-  const [error, setError] = useState();
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function getGenres() {
+    async function fetchData() {
       try {
-        const genreList = await fetch(url).then((data) => data.json());
-
-        setRespData(genreList.genres);
+        const data = await fetch(url).then((data) => data.json());
+        setRespData(data);
       } catch (err) {
         setError(err);
       }
+      setLoading(false);
     }
 
     if (!respData) {
-      getGenres();
+      fetchData();
     }
   }, []);
 
-  return [respData, error];
+  return { respData, error, loading };
 }

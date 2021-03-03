@@ -1,0 +1,9 @@
+@import "styles/colors.scss";
+
+.tag {
+  padding: 0.5em;
+  color: $yellow;
+  border-radius: 0.8em;
+  border: 1px solid $yellow;
+  font-size: 0.6rem;
+}

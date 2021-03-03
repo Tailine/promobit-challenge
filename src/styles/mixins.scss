@@ -1,6 +1,30 @@
+$xs: 22.5em;
+$sm: 30em;
+$md: 768px;
+$lg: 62em;
+$xl: 80em;
+
 @mixin flex($dir, $jus, $ali) {
   display: flex;
   flex-direction: $dir;
   justify-content: $jus;
   align-items: $ali;
+}
+
+@mixin tablet {
+  @media screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $lg) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $lg) {
+    @content;
+  }
 }

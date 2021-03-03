@@ -1,0 +1,8 @@
+@import "styles/mixins.scss";
+
+.movieListContainer {
+  @include tablet {
+    flex-wrap: wrap;
+    @include flex(row, space-around, center);
+  }
+}
