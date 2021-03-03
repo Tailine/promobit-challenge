@@ -14,29 +14,17 @@
     width: 20em;
   }
 
-  // @include flex(column, flex-start, center);
-  // height: 10em;
-
-  // @include flex(row, flex-start, center);
-
   .imageContainer {
-    // width: 8em;
     height: 14em;
     img {
       height: 100%;
       width: 100%;
       border-radius: 2em;
     }
-
-    // @include tablet {
-    //   width: 15rem;
-    // }
   }
 
   .mainContent {
     margin-top: 1em;
-    // width: 60%;
-    // padding: 1em;
 
     .movieInfo {
       position: relative;
