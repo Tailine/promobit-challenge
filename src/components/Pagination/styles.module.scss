@@ -1,0 +1,26 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+@import "styles/variables.scss";
+
+.paginationContainer {
+  width: 50%;
+  @include flex(row, center, center);
+
+  .page {
+    color: $pink;
+    border: 1px $pink solid;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    margin: 0 1em;
+    padding: 0.2em 0.5em;
+    min-width: 2em;
+    text-align: center;
+    cursor: pointer;
+    transition: all ease-in 0.2s;
+
+    &:hover {
+      background-color: $pink;
+      color: $white;
+    }
+  }
+}

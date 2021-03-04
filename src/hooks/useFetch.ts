@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
-export function useFetch<T>(url: string) {
+export function useFetch<T>(url: string, dependenciesArr: any[] = []) {
   const [respData, setRespData] = useState<T | undefined>();
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(true);
+
+  const useEffectDependencies = [...dependenciesArr, url];
 
   useEffect(() => {
     async function fetchData() {
@@ -16,10 +18,8 @@ export function useFetch<T>(url: string) {
       setLoading(false);
     }
 
-    if (!respData) {
-      fetchData();
-    }
-  }, []);
+    fetchData();
+  }, useEffectDependencies);
 
   return { respData, error, loading };
 }
