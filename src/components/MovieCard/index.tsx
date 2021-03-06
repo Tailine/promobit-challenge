@@ -1,6 +1,8 @@
+import { useHistory } from "react-router-dom";
 import s from "./styles.module.scss";
 
 interface MovieCardProps {
+  id: number;
   title: string;
   genres: string[];
   vote_average: number;
@@ -9,12 +11,20 @@ interface MovieCardProps {
 }
 
 export function MovieCard({
+  id,
   genres,
   title,
   vote_average,
   posterPath,
   releaseDate,
 }: MovieCardProps) {
+  const history = useHistory();
+
+  function seeMovieDetials() {
+    localStorage.setItem("movieId", id.toString());
+    history.push("/movie-details");
+  }
+
   return (
     <div className={s.movieCardContainer}>
       <div className={s.imageContainer}>
@@ -28,7 +38,7 @@ export function MovieCard({
             <p className={s.year}>{releaseDate.split("-")[0]}</p>
           </div>
           <div className={s.footerContent}>
-            <a href="">See details</a>
+            <button onClick={seeMovieDetials}>See details</button>
             <p className={s.average}>{vote_average}</p>
           </div>
         </div>

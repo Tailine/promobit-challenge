@@ -44,6 +44,7 @@ export function MovieList({ genreList }: MovieListProps) {
       {movies?.results.map((movie) => (
         <MovieCard
           key={movie.id}
+          id={movie.id}
           posterPath={movie.poster_path}
           title={movie.title}
           releaseDate={movie.release_date}

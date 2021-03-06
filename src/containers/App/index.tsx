@@ -1,5 +1,3 @@
-import { MovieCard } from "components/MovieCard";
-import "./styles.module.scss";
 import { MovieList } from "containers/MovieList";
 import { Filter } from "components/Filter/index";
 import { useFetch } from "hooks/useFetch";
