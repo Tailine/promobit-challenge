@@ -4,7 +4,9 @@ import { useFetch } from "../../hooks/useFetch";
 import { MovieCard } from "components/MovieCard";
 import s from "./styles.module.scss";
 import { Pagination } from "components/Pagination";
-
+import ReactPaginate from "react-paginate";
+import chevronRight from "assets/images/chevronRight.svg";
+import chevronLeft from "assets/images/chevronLeft.svg";
 interface MovieListProps {
   genreList: Genre[];
 }
@@ -34,9 +36,9 @@ export function MovieList({ genreList }: MovieListProps) {
     );
   }
 
-  function handlePageChange(page: number) {
+  function handlePageChange(page: { selected: number }) {
     console.log(page);
-    setCurrentPage(page);
+    setCurrentPage(page.selected + 1);
   }
 
   return (
@@ -52,10 +54,30 @@ export function MovieList({ genreList }: MovieListProps) {
           genres={getMovieGenres(movie.genre_ids)}
         />
       ))}
-      <Pagination
-        currentPage={currentPage}
-        onPageClick={handlePageChange}
-        pages={[1, 3, 5, 6, 7]}
+      <ReactPaginate
+        initialPage={currentPage - 1}
+        pageCount={movies?.total_pages ?? 0}
+        onPageChange={handlePageChange}
+        pageRangeDisplayed={5}
+        marginPagesDisplayed={1}
+        containerClassName={s.paginationContainer}
+        pageClassName={s.page}
+        activeClassName={s.active}
+        breakClassName={s.break}
+        nextLabel={
+          !(currentPage === (movies?.total_pages ?? 0) - 1) && (
+            <button className={s.chevron}>
+              <img src={chevronRight} />
+            </button>
+          )
+        }
+        previousLabel={
+          !(currentPage === 1) && (
+            <button className={s.chevron}>
+              <img src={chevronLeft} />
+            </button>
+          )
+        }
       />
     </section>
   );

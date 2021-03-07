@@ -10,7 +10,7 @@
 
 - [ ] O usuário deve conseguir remover filtros e a listagem deve ser atualizada de acordo com o filtro removido
 
-- [ ] O usário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
+- [x] O usário deve ter acesso a uma outra página com detalhes sobre o filme, ao clicar em um item na listagem
 
 - [ ] O usuário deve conseguir voltar para a página de listagem de filmes com os filtros ainda ativos
 

@@ -1,8 +1,67 @@
 @import "styles/mixins.scss";
+@import "styles/colors.scss";
+@import "styles/variables.scss";
 
 .movieListContainer {
   @include tablet {
     flex-wrap: wrap;
     @include flex(row, space-around, center);
+  }
+}
+
+.paginationContainer {
+  width: 100%;
+  list-style: none;
+  margin: 2rem 0;
+  @include flex(row, center, center);
+
+  .page {
+    color: $pink;
+    border: 1px $pink solid;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    margin: 0 1em;
+    padding: 0.2em 0.5em;
+    min-width: 2em;
+    text-align: center;
+    transition: all ease-in 0.2s;
+    display: table;
+    a {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-color: $pink;
+      color: $white;
+    }
+
+    &:focus {
+      background-color: $pink;
+      color: $white;
+    }
+  }
+
+  .chevron {
+    width: 1.2em;
+    height: 1.2em;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .active {
+    background-color: $pink;
+    color: $white;
+  }
+
+  .break {
+    color: $pink;
+    letter-spacing: 0.2em;
   }
 }
