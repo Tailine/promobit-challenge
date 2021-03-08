@@ -1,0 +1,31 @@
+@import "styles/mixins.scss";
+@import "styles/colors.scss";
+
+.filterSection {
+  min-height: 5em;
+  background: rgba($pink, 0.1);
+  padding: 1em;
+  border: 1px solid rgba($medium-gray, 0.1);
+
+  ul {
+    @include flex(row, flex-start, center);
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+    li {
+      list-style: none;
+      margin-right: 1em;
+      margin-top: 1em;
+      border: 1px solid $medium-gray;
+      border-radius: 1em;
+      padding: 0.3em 0.5em;
+      font-size: 0.7rem;
+      color: $medium-gray;
+      cursor: pointer;
+
+      &.active {
+        color: $white;
+        background-color: rgba($pink, 0.6);
+      }
+    }
+  }
+}

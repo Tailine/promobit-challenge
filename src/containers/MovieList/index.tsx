@@ -1,34 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Genre, Movie, PaginatedData } from "types";
 import { useFetch } from "../../hooks/useFetch";
 import { MovieCard } from "components/MovieCard";
 import s from "./styles.module.scss";
-import { Pagination } from "components/Pagination";
 import ReactPaginate from "react-paginate";
 import chevronRight from "assets/images/chevronRight.svg";
 import chevronLeft from "assets/images/chevronLeft.svg";
+import { Filter } from "components/Filter";
+import { GenreContext } from "../../GenreContext";
 interface MovieListProps {
   genreList: Genre[];
 }
 
 export function MovieList({ genreList }: MovieListProps) {
-  // passar pag e generos
-  // &with_genres=&page=1
   const [currentPage, setCurrentPage] = useState(1);
-  // const [movies, setMovies] = useState<PaginatedData<Movie>>();
+  // const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
+  const [displayFilter, setDisplayFilter] = useState(false);
+  const { selectedGenres, setSelectedGenres } = useContext(GenreContext);
 
   const { respData: movies, error, loading } = useFetch<PaginatedData<Movie>>(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${currentPage}`,
-    [currentPage]
+    `https://api.themoviedb.org/3/movie/popular?api_key=${
+      process.env.REACT_APP_API_KEY
+    }&language=en-US&page=${currentPage}&with_genres=${(
+      selectedGenres ?? []
+    ).join("|")}`,
+    [currentPage, selectedGenres]
   );
-  // function fetchMovies() {
-  //   setMovies(respData);
-  // }
-
-  // TODO handle error and loading
-  // useEffect(() => {
-  //   fetchMovies();
-  // }, [currentPage]);
 
   function getMovieGenres(genreIds: number[]) {
     return genreIds.map(
@@ -37,23 +34,43 @@ export function MovieList({ genreList }: MovieListProps) {
   }
 
   function handlePageChange(page: { selected: number }) {
-    console.log(page);
     setCurrentPage(page.selected + 1);
   }
 
+  console.log(selectedGenres);
+
   return (
-    <section className={s.movieListContainer}>
-      {movies?.results.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          id={movie.id}
-          posterPath={movie.poster_path}
-          title={movie.title}
-          releaseDate={movie.release_date}
-          vote_average={movie.vote_average}
-          genres={getMovieGenres(movie.genre_ids)}
+    <section className={s.movieList}>
+      <h1>Today's Popular</h1>
+      <button
+        className={s.btnFilter}
+        onClick={() => setDisplayFilter((state) => !state)}
+      >
+        Filter
+      </button>
+      {displayFilter && (
+        <Filter
+          genres={genreList}
+          filter={(filtersSelected) => {
+            setSelectedGenres?.(filtersSelected);
+            setDisplayFilter(false);
+          }}
+          defaultSelected={selectedGenres ?? []}
         />
-      ))}
+      )}
+      <div className={s.movieListContainer}>
+        {movies?.results.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            id={movie.id}
+            posterPath={movie.poster_path}
+            title={movie.title}
+            releaseDate={movie.release_date}
+            vote_average={movie.vote_average}
+            genres={getMovieGenres(movie.genre_ids)}
+          />
+        ))}
+      </div>
       <ReactPaginate
         initialPage={currentPage - 1}
         pageCount={movies?.total_pages ?? 0}
