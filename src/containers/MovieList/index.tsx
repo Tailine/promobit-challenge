@@ -46,6 +46,7 @@ export function MovieList({ genreList }: MovieListProps) {
     if (error) {
       return <ErrorMessage message="Error to fetch movies" />;
     }
+
     return (
       <>
         <div className={s.movieListContainer}>
@@ -61,31 +62,33 @@ export function MovieList({ genreList }: MovieListProps) {
             />
           ))}
         </div>
-        <ReactPaginate
-          initialPage={currentPage - 1}
-          pageCount={movies?.total_pages ?? 0}
-          onPageChange={handlePageChange}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={1}
-          containerClassName={s.paginationContainer}
-          pageClassName={s.page}
-          activeClassName={s.active}
-          breakClassName={s.break}
-          nextLabel={
-            !(currentPage === (movies?.total_pages ?? 0) - 1) && (
-              <button className={s.chevron}>
-                <img src={chevronRight} />
-              </button>
-            )
-          }
-          previousLabel={
-            !(currentPage === 1) && (
-              <button className={s.chevron}>
-                <img src={chevronLeft} />
-              </button>
-            )
-          }
-        />
+        {movies?.results.length && (
+          <ReactPaginate
+            initialPage={currentPage - 1}
+            pageCount={movies?.total_pages ?? 0}
+            onPageChange={handlePageChange}
+            pageRangeDisplayed={5}
+            marginPagesDisplayed={1}
+            containerClassName={s.paginationContainer}
+            pageClassName={s.page}
+            activeClassName={s.active}
+            breakClassName={s.break}
+            nextLabel={
+              !(currentPage === (movies?.total_pages ?? 0) - 1) && (
+                <button className={s.chevron}>
+                  <img alt="go to next page" src={chevronRight} />
+                </button>
+              )
+            }
+            previousLabel={
+              !(currentPage === 1) && (
+                <button className={s.chevron}>
+                  <img alt="go to previous page" src={chevronLeft} />
+                </button>
+              )
+            }
+          />
+        )}
       </>
     );
   }

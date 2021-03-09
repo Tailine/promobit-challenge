@@ -1,5 +1,6 @@
+import { ErrorMessage } from "components/ErrorMessage";
+import { Loading } from "components/Loading";
 import { MovieList } from "containers/MovieList";
-import { GenreProvider } from "GenreContext";
 import { useFetch } from "hooks/useFetch";
 import { Genre } from "types";
 
@@ -10,8 +11,13 @@ function App() {
 
   const genreList = respData?.genres ?? [];
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <main>
+      {error && <ErrorMessage message="Error to fetch movie genres" />}
       <MovieList genreList={genreList} />
     </main>
   );

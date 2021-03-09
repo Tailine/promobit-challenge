@@ -3,7 +3,6 @@ import { MovieDetails } from "types";
 import s from "./styles.module.scss";
 import { Loading } from "components/Loading";
 import { ErrorMessage } from "components/ErrorMessage";
-import { Link, useHistory } from "react-router-dom";
 
 export function MovieDetail() {
   const { respData, loading, error } = useFetch<MovieDetails>(
