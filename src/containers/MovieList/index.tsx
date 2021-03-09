@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Genre, Movie, PaginatedData } from "types";
 import { useFetch } from "../../hooks/useFetch";
 import { MovieCard } from "components/MovieCard";

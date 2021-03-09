@@ -1,5 +1,6 @@
+import { NotFound } from "components/NotFound";
 import App from "containers/App";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import { MovieDetail } from "./containers/MovieDetail/index";
 
 export function Routes() {
@@ -8,6 +9,7 @@ export function Routes() {
       <Switch>
         <Route path="/movie-details" component={MovieDetail} />
         <Route exact path="/" component={App} />
+        <Route path="*" component={NotFound} />
       </Switch>
     </Router>
   );
