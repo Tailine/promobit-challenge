@@ -44,7 +44,7 @@ export function MovieList({ genreList }: MovieListProps) {
       return <Loading />;
     }
     if (error) {
-      return <ErrorMessage message="Erro ao buscar filmes" />;
+      return <ErrorMessage message="Error to fetch movies" />;
     }
     return (
       <>
