@@ -1,0 +1,9 @@
+@import "styles/colors.scss";
+@import "styles/variables.scss";
+
+.message {
+  color: $white;
+  background-color: $error-red;
+  padding: 1em;
+  border-radius: 0.5em;
+}

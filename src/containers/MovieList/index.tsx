@@ -9,6 +9,8 @@ import chevronLeft from "assets/images/chevronLeft.svg";
 import { Filter } from "components/Filter";
 import { GenreContext } from "../../GenreContext";
 import { joinClassNames } from "../../helpers/className";
+import { Loading } from "../../components/Loading/index";
+import { ErrorMessage } from "components/ErrorMessage";
 interface MovieListProps {
   genreList: Genre[];
 }
@@ -37,6 +39,57 @@ export function MovieList({ genreList }: MovieListProps) {
     setCurrentPage(page.selected + 1);
   }
 
+  function renderContent() {
+    if (loading) {
+      return <Loading />;
+    }
+    if (error) {
+      return <ErrorMessage message="Erro ao buscar filmes" />;
+    }
+    return (
+      <>
+        <div className={s.movieListContainer}>
+          {movies?.results.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              id={movie.id}
+              posterPath={movie.poster_path}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              vote_average={movie.vote_average}
+              genres={getMovieGenres(movie.genre_ids)}
+            />
+          ))}
+        </div>
+        <ReactPaginate
+          initialPage={currentPage - 1}
+          pageCount={movies?.total_pages ?? 0}
+          onPageChange={handlePageChange}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={1}
+          containerClassName={s.paginationContainer}
+          pageClassName={s.page}
+          activeClassName={s.active}
+          breakClassName={s.break}
+          nextLabel={
+            !(currentPage === (movies?.total_pages ?? 0) - 1) && (
+              <button className={s.chevron}>
+                <img src={chevronRight} />
+              </button>
+            )
+          }
+          previousLabel={
+            !(currentPage === 1) && (
+              <button className={s.chevron}>
+                <img src={chevronLeft} />
+              </button>
+            )
+          }
+        />
+      </>
+    );
+  }
+
   return (
     <section className={s.movieList}>
       <h1>Today's Popular</h1>
@@ -59,44 +112,7 @@ export function MovieList({ genreList }: MovieListProps) {
           defaultSelected={selectedGenres ?? []}
         />
       )}
-      <div className={s.movieListContainer}>
-        {movies?.results.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            id={movie.id}
-            posterPath={movie.poster_path}
-            title={movie.title}
-            releaseDate={movie.release_date}
-            vote_average={movie.vote_average}
-            genres={getMovieGenres(movie.genre_ids)}
-          />
-        ))}
-      </div>
-      <ReactPaginate
-        initialPage={currentPage - 1}
-        pageCount={movies?.total_pages ?? 0}
-        onPageChange={handlePageChange}
-        pageRangeDisplayed={5}
-        marginPagesDisplayed={1}
-        containerClassName={s.paginationContainer}
-        pageClassName={s.page}
-        activeClassName={s.active}
-        breakClassName={s.break}
-        nextLabel={
-          !(currentPage === (movies?.total_pages ?? 0) - 1) && (
-            <button className={s.chevron}>
-              <img src={chevronRight} />
-            </button>
-          )
-        }
-        previousLabel={
-          !(currentPage === 1) && (
-            <button className={s.chevron}>
-              <img src={chevronLeft} />
-            </button>
-          )
-        }
-      />
+      {renderContent()}
     </section>
   );
 }

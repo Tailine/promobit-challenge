@@ -29,7 +29,7 @@
   .movieListContainer {
     @include tablet {
       flex-wrap: wrap;
-      @include flex(row, space-around, center);
+      @include flex(row, space-between, center);
     }
   }
 
