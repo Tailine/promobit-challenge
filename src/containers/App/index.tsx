@@ -1,5 +1,5 @@
 import { MovieList } from "containers/MovieList";
-import { Filter } from "components/Filter/index";
+import { GenreProvider } from "GenreContext";
 import { useFetch } from "hooks/useFetch";
 import { Genre } from "types";
 
@@ -13,7 +13,6 @@ function App() {
   return (
     <main>
       <MovieList genreList={genreList} />
-      <Filter genreList={genreList} />
     </main>
   );
 }

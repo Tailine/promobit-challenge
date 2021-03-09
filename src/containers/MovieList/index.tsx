@@ -8,13 +8,13 @@ import chevronRight from "assets/images/chevronRight.svg";
 import chevronLeft from "assets/images/chevronLeft.svg";
 import { Filter } from "components/Filter";
 import { GenreContext } from "../../GenreContext";
+import { joinClassNames } from "../../helpers/className";
 interface MovieListProps {
   genreList: Genre[];
 }
 
 export function MovieList({ genreList }: MovieListProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  // const [selectedFilters, setSelectedFilters] = useState<number[]>([]);
   const [displayFilter, setDisplayFilter] = useState(false);
   const { selectedGenres, setSelectedGenres } = useContext(GenreContext);
 
@@ -37,13 +37,14 @@ export function MovieList({ genreList }: MovieListProps) {
     setCurrentPage(page.selected + 1);
   }
 
-  console.log(selectedGenres);
-
   return (
     <section className={s.movieList}>
       <h1>Today's Popular</h1>
       <button
-        className={s.btnFilter}
+        className={joinClassNames([
+          s.btnFilter,
+          displayFilter ? s.filterActive : "",
+        ])}
         onClick={() => setDisplayFilter((state) => !state)}
       >
         Filter

@@ -37,7 +37,9 @@ export function Filter({ genres, filter, defaultSelected }: FilterProps) {
           </li>
         ))}
       </ul>
-      <button onClick={() => filter(selectedFilters)}>Apply</button>
+      <div className={s.buttonContainer}>
+        <button onClick={() => filter(selectedFilters)}>Apply</button>
+      </div>
     </div>
   );
 }
