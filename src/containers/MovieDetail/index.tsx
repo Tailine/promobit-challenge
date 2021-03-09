@@ -1,6 +1,8 @@
 import { useFetch } from "hooks/useFetch";
 import { MovieDetails } from "types";
 import s from "./styles.module.scss";
+import { Loading } from "components/Loading";
+import { ErrorMessage } from "components/ErrorMessage";
 import { Link, useHistory } from "react-router-dom";
 
 export function MovieDetail() {
@@ -14,12 +16,12 @@ export function MovieDetail() {
     return i === 0 ? `${genre.name}` : `${initialStr}, ${genre.name}`;
   }, "");
 
-  const history = useHistory();
-
-  return (
-    <>
-      <Link to="/">Voltar</Link>
-      <section className={s.movieDetailContainer}>
+  function renderContent() {
+    if (loading) {
+      return <Loading />;
+    }
+    return (
+      <>
         <img
           src={`https://image.tmdb.org/t/p/w500/${respData?.poster_path}`}
           alt=""
@@ -32,7 +34,17 @@ export function MovieDetail() {
           <p className={s.overview}>{respData?.overview}</p>
           <p className={s.vote}>{respData?.vote_average}</p>
         </div>
-      </section>
+      </>
+    );
+  }
+
+  if (error) {
+    return <ErrorMessage message="Error to fetch movie details" />;
+  }
+
+  return (
+    <>
+      <section className={s.movieDetailContainer}>{renderContent()}</section>
     </>
   );
 }
